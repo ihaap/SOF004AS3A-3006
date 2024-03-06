@@ -4,28 +4,40 @@ import TodoTable from "./TodoTable";
 function TodoList() {
 
     const [desc, setDesc] = useState("");
+    const [date, setDate] = useState("");
     const [todos, setTodos] = useState([]);
 
     const addTodo = () => {
-
-        if (desc.length != 0) {
-        setTodos([...todos, desc]);
-        setDesc("");
+        // Jos eivät ole tyhjiä kenttiä niin lisää, muutoin alert...
+        if (desc.length !== 0 && date.length !== 0) {
+            setTodos([...todos, { desc, date }]);
+            setDesc("");
+            setDate("");
         } else {
-            alert("Kenttä ei voi olla tyhjä!");
+            alert("Kentät ei voi olla tyhjiä!");
         }
     }
 
-    const handleChange = event => {
+    const deleteTodo = (index) => {
+        const newTodos = [...todos];
+        newTodos.splice(index, 1);
+        setTodos(newTodos);
+    }
+
+    const handleDescChange = event => {
         setDesc(event.target.value);
+    }
+
+    const handleDateChange = event => {
+        setDate(event.target.value);
     }
 
     return (
         <>
-            <input type="text" value={desc} onChange={handleChange} />
-            <button onClick={addTodo}>Add</button>
-            <br /><br />
-            <TodoTable todos={todos}/>
+            <input type="text" value={desc} onChange={handleDescChange} placeholder="Description" />
+            <input type="date" value={date} onChange={handleDateChange} placeholder="Date" />
+            <button onClick={addTodo}>Lisää</button>
+            <TodoTable todos={todos} deleteTodo={deleteTodo}/>
         </>
     )
 }
