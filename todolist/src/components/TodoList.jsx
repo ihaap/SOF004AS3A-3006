@@ -24,6 +24,9 @@ function TodoList() {
         setTodos(newTodos);
     }
 
+
+    // Nämä olisi varmaan voinut yhdistää yhdeksi Handleriksi..?
+
     const handleDescChange = event => {
         setDesc(event.target.value);
     }
@@ -34,8 +37,8 @@ function TodoList() {
 
     return (
         <>
-            <input type="text" value={desc} onChange={handleDescChange} placeholder="Description" />
-            <input type="date" value={date} onChange={handleDateChange} placeholder="Date" />
+            <input type="text" value={desc} onChange={handleDescChange} placeholder="Kuvaus" />
+            <input type="date" value={date} onChange={handleDateChange} placeholder="Päivämäärä" />
             <button onClick={addTodo}>Lisää</button>
             <TodoTable todos={todos} deleteTodo={deleteTodo}/>
         </>
